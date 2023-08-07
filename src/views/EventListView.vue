@@ -22,8 +22,9 @@
 // Absolute import
 import EventCard from '@/components/EventCard.vue'
 import EventServices from '@/services/EventServices'
-import { ref, onMounted, watchEffect, defineComponent } from 'vue'
+import { ref, onMounted, watchEffect, defineComponent, type Ref } from 'vue'
 import { computed } from "@vue/reactivity"
+import { type EventItem } from '@/types'
 
 const props = defineProps({
   page: {
@@ -31,7 +32,7 @@ const props = defineProps({
     type: Number
   },
 })
-const events = ref(null)
+const events: Ref<EventItem[]> = ref([])
 const totalEvents = ref<number>(0)
 const pageSize = 2
 const totalPages = computed<number>(() => Math.ceil(totalEvents.value / pageSize))
@@ -42,7 +43,7 @@ onMounted(() => {
   // watchEffect wraps this thing, so it is updated, when reactive objects inside change
   watchEffect(() => {
     // Set the events to null, so the user immediately sees the effect of his action
-    events.value = null
+    events.value = []
     // Trigger a promise-based request to the API
     EventServices.getEvents(2, props.page)
       .then(

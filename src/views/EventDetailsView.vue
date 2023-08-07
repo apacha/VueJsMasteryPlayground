@@ -8,9 +8,11 @@
 
 <script setup lang="ts">
 import EventServices from '@/services/EventServices'
+import type { EventItem } from '@/types';
 import { ref, onMounted } from 'vue'
+import type { Ref } from 'vue/dist/vue.js';
 
-const event = ref(null)
+const event: Ref<EventItem> = ref(null)
 
 const props = defineProps({
   id: {
