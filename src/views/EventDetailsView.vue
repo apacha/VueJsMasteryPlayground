@@ -14,7 +14,8 @@ const event = ref(null)
 
 const props = defineProps({
   id: {
-    required: true
+    required: true,
+    type: Number
   },
 })
 

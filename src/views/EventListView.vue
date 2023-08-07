@@ -22,7 +22,7 @@
 // Absolute import
 import EventCard from '@/components/EventCard.vue'
 import EventServices from '@/services/EventServices'
-import { ref, onMounted, watchEffect } from 'vue'
+import { ref, onMounted, watchEffect, defineComponent } from 'vue'
 import { computed } from "@vue/reactivity"
 
 const props = defineProps({
@@ -32,11 +32,11 @@ const props = defineProps({
   },
 })
 const events = ref(null)
-const totalEvents = ref(null)
+const totalEvents = ref<number>(0)
 const pageSize = 2
-const totalPages = computed(() => Math.ceil(totalEvents.value / pageSize))
-const hasNextPage = computed(() => props.page < totalPages.value)
-const hasPreviousPage = computed(() => props.page > 1)
+const totalPages = computed<number>(() => Math.ceil(totalEvents.value / pageSize))
+const hasNextPage = computed<boolean>(() => props.page < totalPages.value)
+const hasPreviousPage = computed<boolean>(() => props.page > 1)
 
 onMounted(() => {
   // watchEffect wraps this thing, so it is updated, when reactive objects inside change
@@ -60,7 +60,6 @@ onMounted(() => {
   )
 }
 )
-
 </script>
 
 <style scoped>
