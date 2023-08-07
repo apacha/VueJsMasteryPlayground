@@ -3,9 +3,15 @@
   <div class="events">
     <EventCard v-for="event in events" :key="event.id" :event="event" />
     <div class="pagination">
-      <RouterLink :to="{ name: 'event-list', query: { page: page - 1 } }" rel="prev" v-if="page > 1" id="page-prev">&#60; Previous</RouterLink>
-
-      <RouterLink :to="{ name: 'event-list', query: { page: page + 1 } }" rel="next" v-if="hasNextPage" id="page-next">Next &#62;</RouterLink>
+      <RouterLink :to="{ name: 'event-list', query: { page: page - 1 } }" rel="prev" :class="{ invisible: !hasPreviousPage}" id="page-prev">&#60;
+        Previous</RouterLink>
+      <div v-for="p in totalPages">
+        <RouterLink :to="{ name: 'event-list', query: { page: p } }" id="page-specific">
+          &nbsp;{{ p }}&nbsp;
+        </RouterLink>
+      </div>
+      <RouterLink :to="{ name: 'event-list', query: { page: page + 1 } }" rel="next" :class="{ invisible: !hasNextPage}" id="page-next">
+        Next &#62;</RouterLink>
     </div>
   </div>
 </template>
@@ -25,17 +31,24 @@ const props = defineProps({
     type: Number
   },
 })
-
-const hasNextPage = computed({
-  get() {
-    var totalPages = Math.ceil(totalEvents.value / pageSize)
-    return props.page < totalPages
-  }
-})
-
 const events = ref(null)
 const totalEvents = ref(null)
 const pageSize = 2
+const totalPages = computed({
+  get() {
+    return Math.ceil(totalEvents.value / pageSize)
+  }
+})
+const hasNextPage = computed({
+  get() {
+    return props.page < totalPages.value
+  }
+})
+const hasPreviousPage = computed({
+  get() {
+    return props.page > 1
+  }
+})
 
 onMounted(() => {
   // watchEffect wraps this thing, so it is updated, when reactive objects inside change
@@ -68,10 +81,12 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
 }
+
 .pagination {
   display: flex;
   width: 290px;
 }
+
 .pagination a {
   flex: 1;
   text-decoration: none;
@@ -82,7 +97,16 @@ onMounted(() => {
   text-align: left;
 }
 
+#page-specific {
+  text-align: center;
+}
+
 #page-next {
   text-align: right;
 }
+
+.invisible {
+  visibility: hidden;
+}
+
 </style>
