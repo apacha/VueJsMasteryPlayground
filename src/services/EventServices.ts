@@ -11,7 +11,7 @@ const apiClient = axios.create({
 
 // | is the union operator for defining multiple types
 type buttonType = 'primary' | 'secondary' | 'success' | 'danger'
-let buttonStyle: buttonType = "primary"
+const buttonStyle: buttonType = "primary"
 
 type ComicUniverse = 'Marvel' | 'DC'
 interface Hero {
@@ -22,7 +22,7 @@ interface Hero {
     powers: string[];
     universe: ComicUniverse
 }
-let person: Hero = {
+const person: Hero = {
     name: "Peter Parker",
     age: 20,
     active: true,
@@ -30,7 +30,7 @@ let person: Hero = {
     universe: 'Marvel'
 }
 
-let addNumbers = (a: number, b: number): number => {
+const addNumbers = (a: number, b: number): number => {
     return a + b
 }
 
