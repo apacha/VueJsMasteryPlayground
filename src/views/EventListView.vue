@@ -5,7 +5,7 @@
     <div class="pagination">
       <RouterLink :to="{ name: 'event-list', query: { page: page - 1 } }" rel="prev" :class="{ invisible: !hasPreviousPage}" id="page-prev">&#60;
         Previous</RouterLink>
-      <div v-for="p in totalPages">
+      <div v-for="p in totalPages" :key="p">
         <RouterLink :to="{ name: 'event-list', query: { page: p } }" id="page-specific">
           &nbsp;{{ p }}&nbsp;
         </RouterLink>
@@ -23,7 +23,7 @@
 import EventCard from '@/components/EventCard.vue'
 import EventServices from '@/services/EventServices'
 import { ref, onMounted, watchEffect, defineComponent, type Ref } from 'vue'
-import { computed } from "@vue/reactivity"
+import { computed } from "vue"
 import { type EventItem } from '@/types'
 
 const props = defineProps({
