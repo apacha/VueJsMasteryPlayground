@@ -16,7 +16,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // Relative import
 // import EventCard from '../components/EventCard.vue'
 // Absolute import
@@ -34,21 +34,9 @@ const props = defineProps({
 const events = ref(null)
 const totalEvents = ref(null)
 const pageSize = 2
-const totalPages = computed({
-  get() {
-    return Math.ceil(totalEvents.value / pageSize)
-  }
-})
-const hasNextPage = computed({
-  get() {
-    return props.page < totalPages.value
-  }
-})
-const hasPreviousPage = computed({
-  get() {
-    return props.page > 1
-  }
-})
+const totalPages = computed(() => Math.ceil(totalEvents.value / pageSize))
+const hasNextPage = computed(() => props.page < totalPages.value)
+const hasPreviousPage = computed(() => props.page > 1)
 
 onMounted(() => {
   // watchEffect wraps this thing, so it is updated, when reactive objects inside change

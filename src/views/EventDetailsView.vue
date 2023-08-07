@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import EventServices from '@/services/EventServices'
 import { ref, onMounted } from 'vue'
 
