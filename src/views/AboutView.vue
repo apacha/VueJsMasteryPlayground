@@ -19,7 +19,7 @@
 
       <draggable
         :list="musicalDivisions"
-        item-key="name"
+        item-key="id"
         class="list-group"
         ghost-class="ghost"
         :move="checkMove"
@@ -28,23 +28,36 @@
         v-bind="dragOptions"
       >
         <template #item="{ element, index }">
-          <div class="list-group-item" :class="{ 'not-draggable': !enabled }">
-            <font-awesome-icon icon="fa-solid fa-align-justify" class="handle" />
-            <span class="text">{{ element.id }} </span>
-            <input type="text" class="form-control" v-model="element.name" />
-            <font-awesome-icon :icon="['fas', 'times']" class="close" @click="removeAt(index)"/>
+          <div class="row border" :class="{ 'not-draggable': !enabled }">
+            <font-awesome-icon icon="fa-solid fa-align-justify" class="col-1 handle" />
+            <div class="col-1">{{ element.id }}</div>
+            <div class="col-5">
+              <input type="text" class="form-control" v-model="element.name" />
+            </div>
+            <div class="col-3">
+              <select class="form-select" v-model="element.divisionType">
+                <option disabled value="">Please select one</option>
+                <option>Movement</option>
+                <option>Act</option>
+                <option>Scene</option>
+              </select>
+            </div>
+            <div class="col-1">
+              <font-awesome-icon :icon="['fas', 'times']" class="close" @click="removeAt(index)" />
+            </div>
           </div>
         </template>
       </draggable>
     </div>
-
-    <rawDisplayer class="col-2" :value="musicalDivisions" title="List" />
+    <div class="col-4">
+      <rawDisplayer :value="musicalDivisions" title="List" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import draggable from 'vuedraggable'
-let id = 1
+let id = 3
 export default {
   name: 'simpleDraggable',
   display: 'Simple',
@@ -56,9 +69,9 @@ export default {
     return {
       enabled: true,
       musicalDivisions: [
-        { name: 'Adagio', divisionType: 1, id: 0 },
-        { name: 'Allegro', id: 1 },
-        { name: 'Presto', id: 2 }
+        { name: 'Adagio', divisionType: 'Movement', id: 0 },
+        { name: 'Allegro', divisionType: 'Movement', id: 1 },
+        { name: 'Presto', divisionType: 'Movement', id: 2 }
       ],
       dragging: false
     }
@@ -70,20 +83,20 @@ export default {
     dragOptions() {
       return {
         animation: 200,
-        group: "description",
-        disabled: !this.enabled,
+        group: 'description',
+        disabled: !this.enabled
       }
     }
   },
   methods: {
     add: function () {
-      this.musicalDivisions.push({ name: 'Juan ' + id, id: id++ })
+      this.musicalDivisions.push({ name: '', divisionType: '', id: id++ })
     },
     replace: function () {
-      this.musicalDivisions = [{ name: 'Edgard', id: id++ }]
+      this.musicalDivisions = [{ name: 'Edgard', divisionType: 'Movement', id: id++ }]
     },
     removeAt(idx: number) {
-      this.musicalDivisions.splice(idx, 1);
+      this.musicalDivisions.splice(idx, 1)
     },
     checkMove: function (e: any) {
       window.console.log('Future index: ' + e.draggedContext.futureIndex)
@@ -92,13 +105,17 @@ export default {
 }
 </script>
 <style scoped>
-
 .buttons {
   margin-top: 35px;
 }
 
 .handle {
   float: left;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.row {
   padding-top: 8px;
   padding-bottom: 8px;
 }
@@ -110,12 +127,8 @@ export default {
 }
 
 .close:hover {
-    color: red;
-    cursor: pointer;
-}
-
-.text {
-  margin: 20px;
+  color: red;
+  cursor: pointer;
 }
 
 .ghost {
@@ -129,8 +142,6 @@ export default {
 
 input {
   display: inline-block;
-  width: 50%;
+  /* width: 50%; */
 }
-
-
 </style>
