@@ -12,7 +12,8 @@ import type { EventItem } from '@/types';
 import { ref, onMounted } from 'vue'
 import type { Ref } from 'vue/dist/vue.js';
 
-const event: Ref<EventItem> = ref(null)
+// const event: Ref<EventItem> = ref(null)
+  const event: Ref<EventItem | null> = ref(null)
 
 const props = defineProps({
   id: {

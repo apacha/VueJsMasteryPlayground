@@ -15,10 +15,10 @@
     </div>
 
     <div class="col-6">
-      <h3>Draggable {{ draggingInfo }}</h3>
+      <h3>Musical Divisions</h3>
 
       <draggable
-        :list="list"
+        :list="musicalDivisions"
         item-key="name"
         class="list-group"
         ghost-class="ghost"
@@ -30,15 +30,15 @@
         <template #item="{ element, index }">
           <div class="list-group-item" :class="{ 'not-draggable': !enabled }">
             <font-awesome-icon icon="fa-solid fa-align-justify" class="handle" />
-            <span class="text">{{ element.name }} </span>
-            <input type="text" class="form-control" v-model="element.text" />
+            <span class="text">{{ element.id }} </span>
+            <input type="text" class="form-control" v-model="element.name" />
             <font-awesome-icon :icon="['fas', 'times']" class="close" @click="removeAt(index)"/>
           </div>
         </template>
       </draggable>
     </div>
 
-    <rawDisplayer class="col-2" :value="list" title="List" />
+    <rawDisplayer class="col-2" :value="musicalDivisions" title="List" />
   </div>
 </template>
 
@@ -46,7 +46,7 @@
 import draggable from 'vuedraggable'
 let id = 1
 export default {
-  name: 'simple',
+  name: 'simpleDraggable',
   display: 'Simple',
   order: 0,
   components: {
@@ -55,10 +55,10 @@ export default {
   data() {
     return {
       enabled: true,
-      list: [
-        { name: 'John', id: 0 },
-        { name: 'Joao', id: 1 },
-        { name: 'Jean', id: 2 }
+      musicalDivisions: [
+        { name: 'Adagio', divisionType: 1, id: 0 },
+        { name: 'Allegro', id: 1 },
+        { name: 'Presto', id: 2 }
       ],
       dragging: false
     }
@@ -77,21 +77,22 @@ export default {
   },
   methods: {
     add: function () {
-      this.list.push({ name: 'Juan ' + id, id: id++ })
+      this.musicalDivisions.push({ name: 'Juan ' + id, id: id++ })
     },
     replace: function () {
-      this.list = [{ name: 'Edgard', id: id++ }]
+      this.musicalDivisions = [{ name: 'Edgard', id: id++ }]
     },
     removeAt(idx: number) {
-      this.list.splice(idx, 1);
+      this.musicalDivisions.splice(idx, 1);
     },
-    checkMove: function (e) {
+    checkMove: function (e: any) {
       window.console.log('Future index: ' + e.draggedContext.futureIndex)
     }
   }
 }
 </script>
 <style scoped>
+
 .buttons {
   margin-top: 35px;
 }
