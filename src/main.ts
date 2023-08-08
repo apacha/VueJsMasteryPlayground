@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faHouse, faAlignJustify, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 import rawDisplayer from "@/components/raw-displayer.vue";
+import nestedDraggable from "@/components/nested.vue";
 
 /* add icons to the library */
 library.add(faHouse, faAlignJustify, faTimes)
@@ -27,5 +28,6 @@ const app = createApp(App)
     .use(router)
     .component('font-awesome-icon', FontAwesomeIcon)
     .component("rawDisplayer", rawDisplayer)
+    .component("nestedDraggable", nestedDraggable)
 
 app.mount('#app')

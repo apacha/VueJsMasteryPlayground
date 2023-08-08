@@ -4,7 +4,8 @@
       <div class="wrapper">
         <nav>
           <RouterLink :to="{ name: 'event-list' }">Events</RouterLink> |
-          <RouterLink :to="{ name: 'about'}">About</RouterLink>
+          <RouterLink :to="{ name: 'about'}">Musical Divisions</RouterLink> |
+          <RouterLink :to="{ name: 'nested-mdiv'}">Nested Musical Divisions</RouterLink>
         </nav>
       </div>
     </header>
