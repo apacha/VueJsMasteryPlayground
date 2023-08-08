@@ -27,15 +27,18 @@
         @start="dragging = true"
         @end="dragging = false"
       >
-        <template #item="{ element }">
+        <template #item="{ element, index }">
           <div class="list-group-item" :class="{ 'not-draggable': !enabled }">
-            {{ element.name }}
+            <font-awesome-icon icon="fa-solid fa-align-justify" class="handle" />
+            <span class="text">{{ element.name }} </span>
+            <input type="text" class="form-control" v-model="element.text" />
+            <font-awesome-icon :icon="['fas', 'times']" class="close" @click="removeAt(index)"/>
           </div>
         </template>
       </draggable>
     </div>
 
-    <rawDisplayer class="col-3" :value="list" title="List" />
+    <rawDisplayer class="col-2" :value="list" title="List" />
   </div>
 </template>
 
@@ -72,6 +75,9 @@ export default {
     replace: function () {
       this.list = [{ name: 'Edgard', id: id++ }]
     },
+    removeAt(idx: number) {
+      this.list.splice(idx, 1);
+    },
     checkMove: function (e) {
       window.console.log('Future index: ' + e.draggedContext.futureIndex)
     }
@@ -83,12 +89,39 @@ export default {
   margin-top: 35px;
 }
 
+.handle {
+  float: left;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.close {
+  float: right;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.close:hover {
+    color: red;
+}
+
+.text {
+  margin: 20px;
+}
+
 .ghost {
   opacity: 0.5;
-  background: #c8ebfb;
+  background: #aad4e8;
 }
 
 .not-draggable {
   cursor: no-drop;
 }
+
+input {
+  display: inline-block;
+  width: 50%;
+}
+
+
 </style>
