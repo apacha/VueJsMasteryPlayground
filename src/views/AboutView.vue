@@ -19,13 +19,13 @@
 
       <draggable
         :list="list"
-        :disabled="!enabled"
         item-key="name"
         class="list-group"
         ghost-class="ghost"
         :move="checkMove"
         @start="dragging = true"
         @end="dragging = false"
+        v-bind="dragOptions"
       >
         <template #item="{ element, index }">
           <div class="list-group-item" :class="{ 'not-draggable': !enabled }">
@@ -66,6 +66,13 @@ export default {
   computed: {
     draggingInfo() {
       return this.dragging ? 'under drag' : ''
+    },
+    dragOptions() {
+      return {
+        animation: 200,
+        group: "description",
+        disabled: !this.enabled,
+      }
     }
   },
   methods: {
