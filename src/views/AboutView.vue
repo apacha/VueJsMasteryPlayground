@@ -103,6 +103,7 @@ export default {
 
 .close:hover {
     color: red;
+    cursor: pointer;
 }
 
 .text {
