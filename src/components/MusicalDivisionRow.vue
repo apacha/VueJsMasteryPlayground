@@ -2,10 +2,10 @@
   <div class="row border">
     <font-awesome-icon icon="fa-solid fa-align-justify" class="col-1 handle" />
     <div class="col-1">{{ musicalDivision.id }}</div>
-    <div class="col-5">
+    <div class="col-4">
       <input type="text" class="form-control" v-model="musicalDivision.name" />
     </div>
-    <div class="col-3">
+    <div class="col-4">
       <select class="form-select" v-model="musicalDivision.divType">
         <option disabled value="">Please select one</option>
         <option v-for="v in MusicalDivisionType">{{ MusicalDivisionType[v] }}</option>

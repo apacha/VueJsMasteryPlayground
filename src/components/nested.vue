@@ -1,15 +1,26 @@
 <template>
-  <draggable class="dragArea" tag="ul" :list="tasks" :group="{ name: 'g1' }" item-key="name">
+  <draggable
+    :list="musicalDivisions"
+    :group="{ name: 'g1' }"
+    class="dragArea"
+    tag="ul"
+    ghost-class="ghost"
+    item-key="id"
+    animation=200
+  >
     <template #item="{ element, index }">
       <div class="item-group">
-        <div class="row item">
-          <font-awesome-icon icon="fa-solid fa-align-justify" class="col-1 handle" />
-          ID: {{element.id}}, Name: {{ element.name }}
-          <div class="col-1">
-            <font-awesome-icon :icon="['fas', 'times']" class="close" @click="removeAt(element.id)" />
-          </div>
-        </div>
-        <nested-draggable :tasks="element.tasks" @removeItem="removeAt" />
+        <MusicalDivisionRow
+          class="item"
+          :musicalDivision="element"
+          :key="element.id"
+          @remove-musical-division="removeAt"
+        />
+        <nested-draggable
+          class="item-sub"
+          :musical-divisions="element.nested"
+          @removeItem="removeAt"
+        />
       </div>
     </template>
   </draggable>
@@ -31,45 +42,37 @@ export default {
 </script>
 
 <script setup lang="ts">
+import MusicalDivisionRow from '@/components/MusicalDivisionRow.vue'
+import { type MusicalDivision } from '@/types';
 import draggable from 'vuedraggable'
-const props = defineProps({
-  tasks: { type: Array, required: true }
-})
 
-const emit = defineEmits<{
+defineProps({
+  musicalDivisions: { type: Array<MusicalDivision>, required: true }
+})
+defineEmits<{
   (e: 'removeItem', id: number): void
 }>()
-
-
 </script>
 
 <style scoped>
 /* .dragArea {
-  min-height: 50px;
+  min-height: 30px;
   outline: 1px dashed;
 } */
+.ghost {
+  opacity: 0.5;
+  color: #5dc7d1;
+}
 .item-container {
-  max-width: 20rem;
+  max-width: 70rem;
   margin: 0;
 }
-
 .item {
-  padding: 1rem;
+  padding: 12px;
   border: solid black 1px;
-  background-color: #fefefe;
+
 }
 .item-sub {
-  margin: 0 0 0 1rem;
-}
-
-close {
-  float: right;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.close:hover {
-  color: red;
-  cursor: pointer;
+  margin: 0px;
 }
 </style>
