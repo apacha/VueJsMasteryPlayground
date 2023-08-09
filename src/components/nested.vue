@@ -4,12 +4,12 @@
       <div class="item-group">
         <div class="row item">
           <font-awesome-icon icon="fa-solid fa-align-justify" class="col-1 handle" />
-          {{ element.name }}
+          ID: {{element.id}}, Name: {{ element.name }}
           <div class="col-1">
-            <font-awesome-icon :icon="['fas', 'times']" class="close" @click="removeAt(index)" />
+            <font-awesome-icon :icon="['fas', 'times']" class="close" @click="removeAt(element.id)" />
           </div>
         </div>
-        <nested-draggable :tasks="element.tasks" />
+        <nested-draggable :tasks="element.tasks" @removeItem="removeAt" />
       </div>
     </template>
   </draggable>
@@ -37,8 +37,9 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'removeItem', index: number): void
+  (e: 'removeItem', id: number): void
 }>()
+
 
 </script>
 
