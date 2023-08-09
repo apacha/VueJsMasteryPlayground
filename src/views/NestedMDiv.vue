@@ -1,6 +1,14 @@
 <template>
   <div class="row">
-    <div class="col-8">
+    <div class="col-2">
+      <div class="form-group">
+        <div class="btn-group-vertical buttons" role="group" aria-label="Basic example">
+          <button class="btn btn-secondary" @click="add">Add</button>
+          <button class="btn btn-secondary" @click="replace">Replace</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
       <h3>Nested Musical Divisions</h3>
       <nested-draggable :tasks="taskList" @removeItem="removeAt" />
     </div>
