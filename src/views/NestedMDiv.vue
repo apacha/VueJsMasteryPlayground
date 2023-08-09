@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-8">
       <h3>Nested Musical Divisions</h3>
-      <nested-draggable :tasks="taskList" />
+      <nested-draggable :tasks="taskList" @removeItem="removeAt"  />
     </div>    
     <rawDisplayer class="col-3" :value="taskList" title="List" />
   </div>
@@ -67,8 +67,9 @@ export default {
     replace: function () {
       this.taskList = [{ name: 'Edgard', tasks: [] }]
     },
-    removeAt(idx: number) {
-      this.taskList.splice(idx, 1)
+    removeAt(index: number) {
+      window.console.log('removing: ' + index)
+      this.taskList.splice(index, 1)
     },
     checkMove: function (e: any) {
       window.console.log('Future index: ' + e.draggedContext.futureIndex)

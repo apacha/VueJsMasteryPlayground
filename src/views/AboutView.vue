@@ -35,7 +35,7 @@
               <input type="text" class="form-control" v-model="element.name" />
             </div>
             <div class="col-3">
-              <select class="form-select" v-model="element.type">
+              <select class="form-select" v-model="element.divType">
                 <option disabled value="">Please select one</option>
                 <option>Movement</option>
                 <option>Act</option>
@@ -49,6 +49,7 @@
         </template>
       </draggable>
     </div>
+
     <div class="col-4">
       <rawDisplayer :value="musicalDivisions" title="List" />
     </div>
@@ -59,7 +60,11 @@
 import draggable from 'vuedraggable'
 let id = 3
 
-type MusicalDivisionType = 'Movement' | 'Act' | 'Scene'
+enum MusicalDivisionType {
+  Movement = 'Movement',
+  Act = 'Act',
+  Scene = 'Scene'
+}
 interface MusicalDivision {
   id: number
   name: string
@@ -67,13 +72,13 @@ interface MusicalDivision {
   nested: MusicalDivision[]
 }
 let sampleDivisions: MusicalDivision[] = [
-  { id: 0, name: 'Adagio', divType: 'Movement', nested: [] },
-  { id: 1, name: 'Allegro', divType: 'Movement', nested: [] },
+  { id: 0, name: 'Adagio', divType: MusicalDivisionType.Movement, nested: [] },
+  { id: 1, name: 'Allegro', divType: MusicalDivisionType.Movement, nested: [] },
   {
     id: 2,
     name: 'Presto',
-    divType: 'Movement',
-    nested: [{ id: 3, name: 'Inner-1', divType: 'Act', nested: [] }]
+    divType: MusicalDivisionType.Movement,
+    nested: [{ id: 3, name: 'Inner-1', divType: MusicalDivisionType.Act, nested: [] }]
   }
 ]
 
@@ -105,10 +110,17 @@ export default {
   },
   methods: {
     add: function () {
-      this.musicalDivisions.push({ name: '', divType: 'Movement', id: id++, nested: [] })
+      this.musicalDivisions.push({
+        name: '',
+        divType: MusicalDivisionType.Movement,
+        id: id++,
+        nested: []
+      })
     },
     replace: function () {
-      this.musicalDivisions = [{ name: 'Edgard', divType: 'Movement', id: id++, nested: [] }]
+      this.musicalDivisions = [
+        { name: 'Edgard', divType: MusicalDivisionType.Movement, id: id++, nested: [] }
+      ]
     },
     removeAt(idx: number) {
       this.musicalDivisions.splice(idx, 1)
@@ -125,7 +137,6 @@ export default {
 }
 
 .handle {
-  float: left;
   padding-top: 8px;
   padding-bottom: 8px;
 }

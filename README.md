@@ -45,3 +45,6 @@ npm run build
 ```sh
 npm run lint
 ```
+
+## Mock Data
+This project uses My-JSON-Server. You can change the data by putting stuff into [db.json](db.json). An example request looks like this `https://my-json-server.typicode.com/apacha/VueJsMasteryPlayground/events?_limit=2&_page=2`.
