@@ -39,7 +39,7 @@ export default {
         {
           id: 4,
           name: 'task 4',
-          tasks: [{ id: 6, name: 'task 5', tasks: [] }]
+          tasks: [{ id: 5, name: 'task 5', tasks: [] }]
         },
         {
           id: 6,
