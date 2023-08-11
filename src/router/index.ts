@@ -15,12 +15,12 @@ const router = createRouter({
       path: '/',
       name: 'event-list',
       component: EventListView,
-      props: route => ({ page: Number(route.query.page) || 1 })
+      props: route => ({ page: Number(route.query.page) || 1 }),
     },
     {
       path: '/event/:id',
       name: 'EventLayout',
-      props: true,
+      props: route => ({ id: Number(route.params.id) }),
       component: EventLayout,
       children: [
         {

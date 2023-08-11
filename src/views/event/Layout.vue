@@ -12,23 +12,26 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import EventService from '@/services/EventServices'
-export default {
-  props: ['id'],
-  data() {
-    return {
-      event: null
-    }
-  },
-  created() {
-    EventService.getEventDetails(this.id)
-      .then((response: any) => {
-        this.event = response.data
-      })
-      .catch((error: any) => {
-        console.log(error)
-      })
+import type { EventItem } from '@/types'
+import { ref, onMounted } from 'vue'
+
+const event = ref<EventItem>()
+const props = defineProps({
+  id: {
+    type: Number,
+    required: true
   }
-}
+})
+
+onMounted(() => {
+  EventService.getEventDetails(props.id)
+    .then((response: any) => {
+      event.value = response.data
+    })
+    .catch((error: any) => {
+      console.log(error)
+    })
+})
 </script>

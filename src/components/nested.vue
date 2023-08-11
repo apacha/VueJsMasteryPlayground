@@ -8,7 +8,7 @@
     item-key="id"
     animation=200
   >
-    <template #item="{ element, index }">
+    <template #item="{ element }">
       <div class="item-group">
         <MusicalDivisionRow
           class="item"
