@@ -1,12 +1,3 @@
-<script setup lang="ts">
-defineProps({
-  event: {
-    type: Object,
-    required: true
-  }
-})
-</script>
-
 <template>
   <RouterLink class="event-link" :to="{ name: 'EventDetails', params: { id: event.id } }">
     <div class="event-card">
@@ -15,6 +6,15 @@ defineProps({
     </div>
   </RouterLink> |
 </template>
+
+<script setup lang="ts">
+defineProps({
+  event: {
+    type: Object,
+    required: true
+  }
+})
+</script>
 
 <style scoped>
 .event-card {

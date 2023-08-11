@@ -3,15 +3,26 @@
   <div class="events">
     <EventCard v-for="event in events" :key="event.id" :event="event" />
     <div class="pagination">
-      <RouterLink :to="{ name: 'event-list', query: { page: page - 1 } }" rel="prev" :class="{ invisible: !hasPreviousPage}" id="page-prev">&#60;
-        Previous</RouterLink>
+      <RouterLink
+        :to="{ name: 'event-list', query: { page: page - 1 } }"
+        rel="prev"
+        :class="{ invisible: !hasPreviousPage }"
+        id="page-prev"
+        >&#60; Previous</RouterLink
+      >
       <div v-for="p in totalPages" :key="p">
         <RouterLink :to="{ name: 'event-list', query: { page: p } }" id="page-specific">
           &nbsp;{{ p }}&nbsp;
         </RouterLink>
       </div>
-      <RouterLink :to="{ name: 'event-list', query: { page: page + 1 } }" rel="next" :class="{ invisible: !hasNextPage}" id="page-next">
-        Next &#62;</RouterLink>
+      <RouterLink
+        :to="{ name: 'event-list', query: { page: page + 1 } }"
+        rel="next"
+        :class="{ invisible: !hasNextPage }"
+        id="page-next"
+      >
+        Next &#62;</RouterLink
+      >
     </div>
   </div>
 </template>
@@ -23,14 +34,14 @@
 import EventCard from '@/components/EventCard.vue'
 import EventServices from '@/services/EventServices'
 import { ref, onMounted, watchEffect, defineComponent, type Ref } from 'vue'
-import { computed } from "vue"
+import { computed } from 'vue'
 import { type EventItem } from '@/types'
 
 const props = defineProps({
   page: {
     required: true,
     type: Number
-  },
+  }
 })
 const events: Ref<EventItem[]> = ref([])
 const totalEvents = ref<number>(0)
@@ -46,21 +57,15 @@ onMounted(() => {
     events.value = []
     // Trigger a promise-based request to the API
     EventServices.getEvents(2, props.page)
-      .then(
-        (response) => {
-          events.value = response.data
-          totalEvents.value = response.headers['x-total-count']
-        }
-      )
-      .catch(
-        (error) => {
-          console.log(error)
-        }
-      )
-  }
-  )
-}
-)
+      .then((response) => {
+        events.value = response.data
+        totalEvents.value = response.headers['x-total-count']
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  })
+})
 </script>
 
 <style scoped>
@@ -96,5 +101,4 @@ onMounted(() => {
 .invisible {
   visibility: hidden;
 }
-
 </style>
