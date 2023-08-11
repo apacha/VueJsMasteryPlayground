@@ -1,8 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import EventListView from '../views/EventListView.vue'
-import EventDetailsView from '../views/EventDetailsView.vue'
+import EventListView from '@/views/EventListView.vue'
+import EventDetails from '@/views/event/Details.vue'
+import EventLayout from '@/views/event/Layout.vue'
+import EventRegister from '@/views/event/Register.vue'
+import EventEdit from '@/views/event/Edit.vue'
 import AboutView from '@/views/AboutView.vue'
-import NestedMDiv from '@/views/NestedMDiv.vue'
+import MusicalDivisions from '@/views/MusicalDivisions.vue'
+import MusicalDivisionsNested from '@/views/MusicalDivisionsNested.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,9 +19,26 @@ const router = createRouter({
     },
     {
       path: '/event/:id',
-      name: 'event-details',
+      name: 'EventLayout',
       props: true,
-      component: EventDetailsView
+      component: EventLayout,
+      children: [
+        {
+          path: '',
+          name: 'EventDetails',
+          component: EventDetails,
+        },
+        {
+          path: 'register',
+          name: 'EventRegister',
+          component: EventRegister,
+        },
+        {
+          path: 'edit',
+          name: 'EventEdit',
+          component: EventEdit,
+        },
+      ]
     },
     {
       path: '/about',
@@ -25,9 +46,14 @@ const router = createRouter({
       component: AboutView
     },
     {
-      path: '/nested',
-      name: 'nested-mdiv',
-      component: NestedMDiv
+      path: '/musical-divisions',
+      name: 'musical-divisions',
+      component: MusicalDivisions
+    },
+    {
+      path: '/musical-divisions-nested',
+      name: 'musical-divisions-nested',
+      component: MusicalDivisionsNested
     },
   ]
 })
