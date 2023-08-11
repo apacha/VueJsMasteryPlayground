@@ -20,7 +20,7 @@
         @end="dragging = false"
         v-bind="dragOptions"
       >
-        <template #item="{ element, index }">
+        <template #item="{ element }">
           <MusicalDivisionRow
             :musicalDivision="element"
             :key="element.id"
