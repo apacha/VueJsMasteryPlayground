@@ -32,15 +32,15 @@
         <RouterLink
             :to="{ name: 'composition-list', query: { limit: limit, offset: offset - limit } }"
             rel="prev"
-            :class="{ invisible: !hasPreviousPage }"
+            :class="{ disabled: !hasPreviousPage }"
             class="page-link"
             id="page-prev">
           Previous
         </RouterLink>
       </li>
-      <li class="page-item" v-for="p in totalPages" :key="p">
+      <li class="page-item" v-for="(p, index) in totalPages" :key="p">
         <RouterLink :to="{ name: 'composition-list', query: { limit: limit, offset: (p-1) * limit } }"
-
+                    :class="{ active: index===activePage}"
                     class="page-link"
                     id="page-specific">
           &nbsp;{{ p }}&nbsp;
@@ -50,7 +50,7 @@
         <RouterLink
             :to="{ name: 'composition-list', query: { limit: limit, offset: offset + limit } }"
             rel="next"
-            :class="{ invisible: !hasNextPage }"
+            :class="{ disabled: !hasNextPage }"
             class="page-link"
             id="page-next">
           Next
@@ -80,6 +80,7 @@ const props = defineProps({
 })
 const compositions: Ref<Composition[]> = ref([])
 const totalCompositions = ref<number>(0)
+const activePage = computed<number>(() => props.offset / props.limit)
 const totalPages = computed<number>(() => Math.ceil(totalCompositions.value / props.limit))
 const hasNextPage = computed<boolean>(() => props.offset + props.limit < totalCompositions.value)
 const hasPreviousPage = computed<boolean>(() => props.offset >= props.limit)
