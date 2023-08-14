@@ -50,7 +50,7 @@ const router = createRouter({
       path: '/compositions',
       name: 'composition-list',
       component: CompositionListView,
-      props: route => ({ limit: Number(route.query.limit) || 20, offset: Number(route.query.offset) || 1 }),
+      props: route => ({ limit: Number(route.query.limit) || 20, offset: Number(route.query.offset) || 0 }),
     },
     {
       path: '/musical-divisions',

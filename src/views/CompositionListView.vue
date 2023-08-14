@@ -6,7 +6,7 @@
     </div>
     <div class="pagination">
       <RouterLink
-          :to="{ name: 'composition-list', query: { offset: offset - limit } }"
+          :to="{ name: 'composition-list', query: { limit: limit, offset: offset - limit } }"
           rel="prev"
           :class="{ invisible: !hasPreviousPage }"
           id="page-prev"
@@ -14,12 +14,12 @@
       </RouterLink
       >
       <div v-for="p in totalPages" :key="p">
-        <RouterLink :to="{ name: 'composition-list', query: { offset: (p-1) * limit } }" id="page-specific">
+        <RouterLink :to="{ name: 'composition-list', query: { limit: limit, offset: (p-1) * limit } }" id="page-specific">
           &nbsp;{{ p }}&nbsp;
         </RouterLink>
       </div>
       <RouterLink
-          :to="{ name: 'composition-list', query: { offset: (offset + limit) } }"
+          :to="{ name: 'composition-list', query: { limit: limit, offset: offset + limit } }"
           rel="next"
           :class="{ invisible: !hasNextPage }"
           id="page-next"
@@ -58,8 +58,8 @@ const previous = ref<string>("")
 onMounted(() => {
   // watchEffect wraps this thing, so it is updated, when reactive objects inside change
   watchEffect(() => {
-    // Set the events to null, so the user immediately sees the effect of his action
-    compositions.value = []
+    // // Set the events to null, so the user immediately sees the effect of his action
+    // compositions.value = []
     // Trigger a promise-based request to the API
 
     MusicCmsService.getCompositions(props.limit, props.offset)
