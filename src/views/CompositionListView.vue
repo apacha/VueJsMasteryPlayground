@@ -14,9 +14,9 @@
       <tbody>
       <tr v-for="composition in compositions" :key="composition.id">
         <th scope="row">
-<!--          <a href="">-->
-            {{ composition.id }}
-<!--          </a>-->
+          <!--          <a href="">-->
+          {{ composition.id }}
+          <!--          </a>-->
         </th>
         <td>{{ composition.title }}</td>
         <td>{{ composition.composers.join(", ") }}</td>
@@ -25,32 +25,41 @@
       </tr>
       </tbody>
     </table>
-    <div class="pagination">
-      <RouterLink
-          :to="{ name: 'composition-list', query: { limit: limit, offset: offset - limit } }"
-          rel="prev"
-          :class="{ invisible: !hasPreviousPage }"
-          id="page-prev"
-      >&#60; Previous
-      </RouterLink
-      >
-      <div v-for="p in totalPages" :key="p">
+  </div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <RouterLink
+            :to="{ name: 'composition-list', query: { limit: limit, offset: offset - limit } }"
+            rel="prev"
+            :class="{ invisible: !hasPreviousPage }"
+            class="page-link"
+            id="page-prev">
+          Previous
+        </RouterLink>
+      </li>
+      <li class="page-item" v-for="p in totalPages" :key="p">
         <RouterLink :to="{ name: 'composition-list', query: { limit: limit, offset: (p-1) * limit } }"
+
+                    class="page-link"
                     id="page-specific">
           &nbsp;{{ p }}&nbsp;
         </RouterLink>
-      </div>
-      <RouterLink
-          :to="{ name: 'composition-list', query: { limit: limit, offset: offset + limit } }"
-          rel="next"
-          :class="{ invisible: !hasNextPage }"
-          id="page-next"
-      >
-        Next &#62;
-      </RouterLink
-      >
-    </div>
-  </div>
+      </li>
+      <li class="page-item">
+        <RouterLink
+            :to="{ name: 'composition-list', query: { limit: limit, offset: offset + limit } }"
+            rel="next"
+            :class="{ invisible: !hasNextPage }"
+            class="page-link"
+            id="page-next">
+          Next
+        </RouterLink>
+      </li>
+
+    </ul>
+  </nav>
+
 </template>
 
 <script setup lang="ts">
