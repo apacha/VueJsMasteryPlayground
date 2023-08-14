@@ -1,9 +1,30 @@
 <template>
   <h1>Compositions</h1>
   <div class="compositions">
-    <div v-for="composition in compositions" :key="composition.id">
-      {{ composition.id }} - {{ composition.title }}
-    </div>
+    <table >
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Composers</th>
+        <th scope="col">Number</th>
+        <th scope="col">Opus</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="composition in compositions" :key="composition.id">
+        <th scope="row">
+<!--          <a href="">-->
+            {{ composition.id }}
+<!--          </a>-->
+        </th>
+        <td>{{ composition.title }}</td>
+        <td>{{ composition.composers.join(", ") }}</td>
+        <td>{{ composition.number }}</td>
+        <td>{{ composition.opus }}</td>
+      </tr>
+      </tbody>
+    </table>
     <div class="pagination">
       <RouterLink
           :to="{ name: 'composition-list', query: { limit: limit, offset: offset - limit } }"
@@ -14,7 +35,8 @@
       </RouterLink
       >
       <div v-for="p in totalPages" :key="p">
-        <RouterLink :to="{ name: 'composition-list', query: { limit: limit, offset: (p-1) * limit } }" id="page-specific">
+        <RouterLink :to="{ name: 'composition-list', query: { limit: limit, offset: (p-1) * limit } }"
+                    id="page-specific">
           &nbsp;{{ p }}&nbsp;
         </RouterLink>
       </div>
