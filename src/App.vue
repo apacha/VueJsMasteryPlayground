@@ -5,6 +5,7 @@
         <nav>
           <RouterLink :to="{ name: 'event-list' }">Events</RouterLink> |
           <RouterLink :to="{ name: 'about'}">About</RouterLink> |
+          <RouterLink :to="{ name: 'composition-list'}">Compositions</RouterLink> |
           <RouterLink :to="{ name: 'musical-divisions'}">Musical Divisions</RouterLink> |
           <RouterLink :to="{ name: 'musical-divisions-nested'}">Nested Musical Divisions</RouterLink>
         </nav>

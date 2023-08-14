@@ -7,6 +7,7 @@ import EventEdit from '@/views/event/Edit.vue'
 import AboutView from '@/views/AboutView.vue'
 import MusicalDivisions from '@/views/MusicalDivisions.vue'
 import MusicalDivisionsNested from '@/views/MusicalDivisionsNested.vue'
+import CompositionListView from "@/views/CompositionListView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,12 @@ const router = createRouter({
       path: '/about',
       name: 'about',
       component: AboutView
+    },
+    {
+      path: '/compositions',
+      name: 'composition-list',
+      component: CompositionListView,
+      props: route => ({ limit: Number(route.query.limit) || 20, offset: Number(route.query.offset) || 1 }),
     },
     {
       path: '/musical-divisions',

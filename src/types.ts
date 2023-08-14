@@ -1,3 +1,13 @@
+export interface Composition {
+    id: number;
+    title: string;
+    number: number;
+    composers: string[];
+    opus: string;
+    legacy_composition_identifier: string;
+    uuid: string;
+    publications: string[];
+}
 
 export interface EventItem {
     id: number
