@@ -1,7 +1,7 @@
 <template>
   <h1>Compositions</h1>
   <div class="compositions">
-    <table >
+    <table class="table table-striped">
       <thead>
       <tr>
         <th scope="col">#</th>
